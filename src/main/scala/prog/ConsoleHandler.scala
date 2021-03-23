@@ -8,6 +8,7 @@ object ConsoleHandler {
         case "1" => first
         case "2" => second
         case "3" => third
+        case "4" => forth
         case "exit" | "e" | "no" | "n" | "учше" =>
           print("Хорошего Вам дня!")
           System.exit(0)
@@ -23,12 +24,16 @@ object ConsoleHandler {
   private def third(x: Double): Double = Math.pow(x, 3) - 0.78 * Math.pow(x, 2) - 0.826 * x + 0.145
   private def forth(x: Double): Double = -1.38 * Math.pow(x, 3) - 5.42 * Math.pow(x, 2) + 2.57 * x + 10.95
   
-  def limitHandler(line: String): (Double, Double)= {
+  def limitHandler(line: String): (Double, Double, Double)= {
     val input = line.trim.split(" ")
     val left = input(0).toDouble
     val right = input(1).toDouble
-    (left, right)
+    println("Введите число разбиений") // TODO ask teacher about accuracy & parts
+    // read it & use if needed
+    val step = (right - left) / 100 // right now it would be 100 parts
+    if (right <= left) {
+      Console.err.println("Некорректные данные")
+      (-3, -1, 0.01)
+    } else (left, right, step)
   }
-
-
 }
