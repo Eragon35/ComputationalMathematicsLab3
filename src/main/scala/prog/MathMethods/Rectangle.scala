@@ -2,15 +2,14 @@ package prog.MathMethods
 
 import scala.annotation.tailrec
 
+
 object Rectangle {
   def solve(func: Double => Double, left: Double, right: Double, step: Double): Unit = {
-
     @tailrec
     def findIntegral(x: Double, answer: Double = 0): Double = {
       if (x >= right - step) answer
       else findIntegral(x+step, answer + func(x) * step)
     }
-
     @tailrec
     def findMiddleIntegral(x: Double, answer: Double = 0): Double = {
       if (x >= right - step) answer

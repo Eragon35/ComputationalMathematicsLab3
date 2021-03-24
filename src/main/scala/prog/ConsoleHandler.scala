@@ -4,7 +4,9 @@ import scala.io.StdIn
 
 
 object ConsoleHandler {
-  def functionHandler(line: String): Option[(Double => Double)] = {
+  def functionHandler(): Option[(Double => Double)] = {
+    println("\nВыберите функцию, набрав её номер")
+    var line = StdIn.readLine()
     Option(
       line.trim.toLowerCase match {
         case "1" => first
@@ -20,15 +22,17 @@ object ConsoleHandler {
       }
     )
   }
-
   private def first(x: Double): Double = -3 * Math.pow(x, 3) - 5 * Math.pow(x, 2) + 4 * x - 2
   private def second(x: Double): Double = Math.cos(x)
   private def third(x: Double): Double = Math.pow(x, 3) - 0.78 * Math.pow(x, 2) - 0.826 * x + 0.145
   private def forth(x: Double): Double = Math.pow(x, 2)
 
-  def limitHandler(line: String): (Double, Double, Double)= {
+  def limitHandler(): (Double, Double, Double)= {
+    println("Введите пределы интегрирования через пробел")
+    var line = StdIn.readLine()
+    while (line.contains("  ")) line = line.trim.replaceAll("\\s\\s", " ")
     try {
-      val input = line.trim.split(" ")
+      val input = line.trim.replaceAll(",",".").split(" ")
       val left = input(0).toDouble
       val right = input(1).toDouble
       println("Введите число разбиений") // TODO ask teacher about accuracy & parts
