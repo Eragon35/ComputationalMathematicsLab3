@@ -1,17 +1,22 @@
 package prog.MathMethods
 
+import scala.annotation.tailrec
+
 
 object Simpson {
-  def solve(func: Double => Double, left: Double, right: Double): Unit = {
-    val h = (right - left) / 4
-    val leftAnswer = func(left)
-    val rightAnswer = func(right)
-    val middleAnswer = func((right + left) / 2)
-    val leftQuatterAnswer = func(left + h)
-    val rightQuatterAnswer = func(right - h)
-    val answer = h / 3 * (leftAnswer + 4 * (leftQuatterAnswer + rightQuatterAnswer) + 2 * middleAnswer + rightAnswer)
-    val simpleAnswer = (right - left) / 6 * (leftAnswer + rightAnswer + 4 * middleAnswer) // use Simpson's 1/3 rule
-    
+  def solve(func: Double => Double, left: Double, right: Double, step: Double, n: Int): Unit = {
+
+    @tailrec
+    def findIntegral(x: Double, answer: Double): Double = {
+      if (x >= right - step) answer
+      else {
+        if (((x - left) / step).toInt % 2 == 0) findIntegral(x+step, answer + 2 * func(x))
+        else findIntegral(x+step, answer + 4 * func(x))
+      }
+    }
+    val answer = ((right - left) / n) / 3 * findIntegral(left + step, func(left) + func(right))
+    val simpleAnswer = (right - left) / 6 * (func(left) + func(right) + 4 * func((right + left) / 2)) // use Simpson's 1/3 rule
+
     println(s"Метод Симпсона:\n\tПравило 1/3 = $simpleAnswer\n\tПри n = 4 ответ = $answer")
   }
 }

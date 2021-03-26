@@ -27,7 +27,8 @@ object ConsoleHandler {
   private def third(x: Double): Double = Math.pow(x, 3) - 0.78 * Math.pow(x, 2) - 0.826 * x + 0.145
   private def forth(x: Double): Double = Math.pow(x, 2)
 
-  def limitHandler(): (Double, Double, Double)= {
+  
+  def limitHandler(): (Double, Double, Double, Int)= {
     println("Введите пределы интегрирования через пробел")
     var line = StdIn.readLine()
     while (line.contains("  ")) line = line.trim.replaceAll("\\s\\s", " ")
@@ -35,16 +36,16 @@ object ConsoleHandler {
       val input = line.trim.replaceAll(",",".").split(" ")
       val left = input(0).toDouble
       val right = input(1).toDouble
-      println("Введите число разбиений") // TODO ask teacher about accuracy & parts
+      println("Введите число разбиений") 
       val n = StdIn.readInt()
-      val step = Math.abs(right - left) / n
+      val step = Math.abs(right + left) / n
       if (right <= left) throw IllegalArgumentException("Окончание интервала не может быть меньше начала")
       else if (n <= 0) throw IllegalArgumentException("Число разбиений не может быть меньше или равно 0")
-      else (left, right, step)
+      else (left, right, step, n)
     } catch {
       case e : Exception => Console.err.println("Ошибка чтения: " + e.getMessage)
         println("Вычисляем с параметрами по умолчанию (-3, -1, 0.01)")
-        return (-3, -1, 0.01)
+        return (-3, -1, 0.8, 5)
     }
   }
 }
