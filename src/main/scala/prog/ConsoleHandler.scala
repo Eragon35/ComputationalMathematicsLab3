@@ -38,14 +38,14 @@ object ConsoleHandler {
       val right = input(1).toDouble
       println("Введите число разбиений") 
       val n = StdIn.readInt()
-      val step = Math.abs(right + left) / n
+      val step = Math.abs(right - left) / n
       if (right <= left) throw IllegalArgumentException("Окончание интервала не может быть меньше начала")
       else if (n <= 0) throw IllegalArgumentException("Число разбиений не может быть меньше или равно 0")
       else (left, right, step, n)
     } catch {
       case e : Exception => Console.err.println("Ошибка чтения: " + e.getMessage)
         println("Вычисляем с параметрами по умолчанию (-3, -1, 0.01)")
-        return (-3, -1, 0.8, 5)
+        return (-3, -1, 0.4, 5)
     }
   }
 }
