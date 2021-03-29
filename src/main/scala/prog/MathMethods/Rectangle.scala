@@ -12,7 +12,7 @@ object Rectangle {
       n = n + 1
       step = (right - left) / n
     }
-    
+
     @tailrec
     def findIntegral(x: Double, answer: Double = 0): Double = {
       if (x >= right) answer
@@ -23,7 +23,8 @@ object Rectangle {
       if (x >= right) answer
       else findMiddleIntegral(x + step, answer + func(x + step / 2) * step)
     }
-    
+
+
     // finding left reactangle
     var previousAnswer = func(left) * step + findIntegral(left + step)
     changeStep()
@@ -35,7 +36,7 @@ object Rectangle {
     }
     val leftAnswer = answer
     val nLeft = n
-    
+
     n = 4 // finding middle rectangle
     previousAnswer = findMiddleIntegral(left)
     changeStep()
@@ -47,7 +48,7 @@ object Rectangle {
     }
     val middleAnswer = answer
     val nMiddle = n
-    
+
     n = 4 // finding right rectangle
     previousAnswer = func(right) * step + findIntegral(left + step)
     changeStep()

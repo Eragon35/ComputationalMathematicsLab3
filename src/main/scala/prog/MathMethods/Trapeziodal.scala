@@ -16,9 +16,7 @@ object Trapeziodal {
     @tailrec
     def findIntegral(y0: Double, x: Double, answer: Double = 0): Double = {
       if (x >= right) answer
-      else {
-        findIntegral(func(x+step), x+step, answer + (y0 + func(x+step)) / 2 * step)
-      }
+      else findIntegral(func(x+step), x+step, answer + (y0 + func(x+step)) / 2 * step)
     }
     
     
@@ -31,8 +29,5 @@ object Trapeziodal {
       answer = findIntegral(func(left), left)
     }
     println(s"Метод трапеций = $answer, за $n итераций")
-
-    
   }
-  
 }
