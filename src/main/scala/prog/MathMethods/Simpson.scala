@@ -4,7 +4,14 @@ import scala.annotation.tailrec
 
 
 object Simpson {
-  def solve(func: Double => Double, left: Double, right: Double, step: Double, n: Int): Unit = {
+  def solve(func: Double => Double, left: Double, right: Double, accuracy: Double): Unit = {
+    var n: Int = 4
+    var step: Double = (right - left) / n
+
+    def changeStep(): Unit = {
+      n = n + 1
+      step = (right - left) / n
+    }
 
     @tailrec
     def findIntegral(x: Double, answer: Double, even: Boolean = false): Double = {
@@ -15,9 +22,16 @@ object Simpson {
       }
     }
     
-    val answer = step / 3 * findIntegral(left + step, func(left) + func(right))
-    val simpleAnswer = (right - left) / 6 * (func(left) + func(right) + 4 * func((right + left) / 2)) // use Simpson's 1/3 rule
 
-    println(s"Метод Симпсона:\n\tПравило 1/3 = $simpleAnswer\n\tПри n = $n ответ = $answer")
+    val simpleAnswer = (right - left) / 6 * (func(left) + func(right) + 4 * func((right + left) / 2)) // use Simpson's 1/3 rule
+    var previousAnswer = findIntegral(func(left), left)
+    changeStep()
+    var answer = step / 3 * findIntegral(left + step, func(left) + func(right))
+    while (Math.abs(previousAnswer - answer) >= accuracy) {
+      previousAnswer = answer
+      changeStep()
+      answer = step / 3 * findIntegral(left + step, func(left) + func(right))
+    }
+    println(s"Метод Симпсона:\n\tПравило 1/3 = $simpleAnswer\n\tза $n итераций ответ = $answer")
   }
 }

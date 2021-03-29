@@ -16,10 +16,10 @@ object Main {
     while (true) {
       functionHandler() match {
         case Some(value) =>
-          val limits = limitHandler() // ._1 - left
-          Trapeziodal.solve(value, limits._1, limits._2, limits._3) // ._2 - right
-          Rectangle.solve(value, limits._1, limits._2, limits._3) // ._3 - step
-          Simpson.solve(value, limits._1, limits._2, limits._3, limits._4) // ._4 - n
+          val limits = limitHandler() 
+          Trapeziodal.solve(value, limits._1, limits._2, limits._3) // ._1 - left
+          Rectangle.solve(value, limits._1, limits._2, limits._3) // ._2 - right
+          Simpson.solve(value, limits._1, limits._2, limits._3) // ._3 - accuracy
         case None => Console.err.println("Some error")
       }
     }

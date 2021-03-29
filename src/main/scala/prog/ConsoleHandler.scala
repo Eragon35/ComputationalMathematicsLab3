@@ -28,7 +28,7 @@ object ConsoleHandler {
   private def forth(x: Double): Double = Math.pow(x, 2)
 
   
-  def limitHandler(): (Double, Double, Double, Int)= {
+  def limitHandler(): (Double, Double, Double)= {
     println("Введите пределы интегрирования через пробел")
     var line = StdIn.readLine()
     while (line.contains("  ")) line = line.trim.replaceAll("\\s\\s", " ")
@@ -36,16 +36,15 @@ object ConsoleHandler {
       val input = line.trim.replaceAll(",",".").split(" ")
       val left = input(0).toDouble
       val right = input(1).toDouble
-      println("Введите число разбиений") 
-      val n = StdIn.readInt()
-      val step = Math.abs(right - left) / n
+      println("Введите точность")
+      val accuracy = StdIn.readDouble()
       if (right <= left) throw IllegalArgumentException("Окончание интервала не может быть меньше начала")
-      else if (n <= 0) throw IllegalArgumentException("Число разбиений не может быть меньше или равно 0")
-      else (left, right, step, n)
+      else if (accuracy <= 0) throw IllegalArgumentException("Точность не может быть меньше или равно 0")
+      else (left, right, accuracy)
     } catch {
       case e : Exception => Console.err.println("Ошибка чтения: " + e.getMessage)
         println("Вычисляем с параметрами по умолчанию (-3, -1, 0.01)")
-        return (-3, -1, 0.4, 5)
+        return (-3, -1, 0.4)
     }
   }
 }
