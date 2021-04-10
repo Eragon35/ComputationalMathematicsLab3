@@ -19,15 +19,24 @@ object Trapeziodal {
       else findIntegral(func(x+step), x+step, answer + (y0 + func(x+step)) / 2 * step)
     }
     
-    
-    var previousAnswer = findIntegral(func(left), left)
-    changeStep()
-    var answer = findIntegral(func(left), left)
-    while (Math.abs(previousAnswer - answer) >= accuracy) {
-      previousAnswer = answer
+    var solution: Option[Double] = None
+    try {
+      var previousAnswer = findIntegral(func(left), left)
       changeStep()
-      answer = findIntegral(func(left), left)
+      var answer = findIntegral(func(left), left)
+      while (Math.abs(previousAnswer - answer) >= accuracy) {
+        if (previousAnswer.isInfinite) throw ArithmeticException("Деление на 0")
+        previousAnswer = answer
+        changeStep()
+        answer = findIntegral(func(left), left)
+      }
+      solution = Option(answer)
+    } catch {
+      case e: ArithmeticException => if (left == -right) solution = Option(0.0)
     }
-    println(s"Метод трапеций = $answer, за $n итераций")
+    solution match {
+      case Some(value) => println(s"Метод трапеций = $value, за $n итераций")
+      case None => println("Невозможно вычислить, неустранимый разрыв второго рода")
+    }
   }
 }
