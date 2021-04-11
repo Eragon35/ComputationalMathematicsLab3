@@ -1,6 +1,7 @@
 package prog.MathMethods
 
 import scala.annotation.tailrec
+import scala.util.control.Breaks.break
 
 
 object Simpson {
@@ -15,9 +16,11 @@ object Simpson {
 
     @tailrec
     def findIntegral(x: Double, answer: Double, even: Boolean = false): Double = {
+      var tempAnswer = func(x)
+      if (tempAnswer.isNaN) tempAnswer = 0
       if (x >= right) answer
-      else if (even) findIntegral(x + step, answer + 2 * func(x))
-      else findIntegral(x + step, answer + 4 * func(x), true)
+      else if (even) findIntegral(x + step, answer + 2 * tempAnswer)
+      else findIntegral(x + step, answer + 4 * tempAnswer, true)
     }
     
     
