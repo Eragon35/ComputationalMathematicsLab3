@@ -7,10 +7,12 @@ import scala.util.control.Breaks.break
 object Simpson {
   def solve(func: Double => Double, left: Double, right: Double, accuracy: Double): Unit = {
     var n: Int = 4
+    var count = 1
     var step: Double = (right - left) / n
 
     def changeStep(): Unit = {
-      n = n + 1
+      n = n + 2
+      count += 1
       step = (right - left) / n
     }
 
@@ -41,7 +43,8 @@ object Simpson {
     }
     val simpleAnswer = (right - left) / 6 * (func(left) + func(right) + 4 * func((right + left) / 2)) // use Simpson's 1/3 rule
     solution match {
-      case Some(value) => println(s"Метод Симпсона:\n\tПравило 1/3 = $simpleAnswer\n\tза $n итераций ответ = $value")
+      case Some(value) => println(s"Метод Симпсона:\n\tПравило 1/3 = $simpleAnswer\n\tза $count итераций " +
+        s"ответ = $value с кол-вом разбиений на $n отрезков")
       case None => println("Невозможно вычислить, неустранимый разрыв второго рода")
     }
   }

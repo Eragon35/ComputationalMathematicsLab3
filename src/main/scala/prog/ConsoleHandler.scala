@@ -24,7 +24,7 @@ object ConsoleHandler {
   }
   private def first(x: Double): Double = -3 * Math.pow(x, 3) - 5 * Math.pow(x, 2) + 4 * x - 2
   private def second(x: Double): Double = Math.sin(x) / x
-  private def third(x: Double): Double = Math.pow(x, 3) - 0.78 * Math.pow(x, 2) - 0.826 * x + 0.145
+  private def third(x: Double): Double = Math.pow(x, 2)
   private def forth(x: Double): Double = 1 / x
 
   
@@ -44,7 +44,7 @@ object ConsoleHandler {
     } catch {
       case e : Exception => Console.err.println("Ошибка чтения: " + e.getMessage)
         println("Вычисляем с параметрами по умолчанию (-3, -1, 0.01)")
-        return (-3, -1, 0.4)
+        return (-3, -1, 0.01)
     }
   }
 }

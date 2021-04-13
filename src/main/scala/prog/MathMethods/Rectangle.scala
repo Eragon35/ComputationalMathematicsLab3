@@ -36,7 +36,7 @@ object Rectangle {
         answer = func(left) * step + findIntegral(left + step)
       }
       val leftAnswer = answer
-      val nLeft = n
+      val nLeft = n - 4
 
       n = 4 // finding middle rectangle
       previousAnswer = findMiddleIntegral(left)
@@ -48,7 +48,7 @@ object Rectangle {
         answer = findMiddleIntegral(left)
       }
       val middleAnswer = answer
-      val nMiddle = n
+      val nMiddle = n - 4
 
       n = 4 // finding right rectangle
       previousAnswer = func(right) * step + findIntegral(left + step)
@@ -60,7 +60,7 @@ object Rectangle {
         answer = func(right) * step + findIntegral(left + step)
       }
       val rightAnswer = answer
-      val nRight = n
+      val nRight = n - 4
       println(s"Метод прямоугольников:\n\tлевых = $leftAnswer, за $nLeft итераций" +
         s"\n\tсредних = $middleAnswer, за $nMiddle итераций\n\tправых = $rightAnswer, за $nRight итераций")
     } catch {

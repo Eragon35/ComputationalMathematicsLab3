@@ -34,6 +34,7 @@ object Trapeziodal {
     } catch {
       case e: ArithmeticException => if (left == -right) solution = Option(0.0)
     }
+    n -= 3
     solution match {
       case Some(value) => println(s"Метод трапеций = $value, за $n итераций")
       case None => println("Невозможно вычислить, неустранимый разрыв второго рода")
